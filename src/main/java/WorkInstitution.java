@@ -1,9 +1,8 @@
-public class WorkInstitution implements Institution {
-    private InstitutionType type = InstitutionType.WORK;
+import java.util.List;
 
-    @Override
-    public InstitutionType getType() {
-        return type;
+public class WorkInstitution extends Institution {
+    public WorkInstitution() {
+        super(List.of(InstitutionType.WORK));
     }
 
     @Override

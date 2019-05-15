@@ -1,9 +1,8 @@
-public class SocialWelfareInstitution implements Institution {
-    private InstitutionType type = InstitutionType.SOCIAL_WELFARE;
+import java.util.List;
 
-    @Override
-    public InstitutionType getType() {
-        return type;
+public class SocialWelfareInstitution extends Institution {
+    public SocialWelfareInstitution() {
+        super(List.of(InstitutionType.SOCIAL_WELFARE));
     }
 
     @Override

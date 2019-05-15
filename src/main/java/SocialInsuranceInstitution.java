@@ -1,9 +1,8 @@
-public class SocialInsuranceInstitution implements Institution {
-    private InstitutionType type = InstitutionType.SOCIAL_INSURANCE;
+import java.util.List;
 
-    @Override
-    public InstitutionType getType() {
-        return type;
+public class SocialInsuranceInstitution extends Institution {
+    public SocialInsuranceInstitution() {
+        super(List.of(InstitutionType.SOCIAL_INSURANCE));
     }
 
     @Override
