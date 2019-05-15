@@ -1,0 +1,3 @@
+enum InstitutionType {
+    SOCIAL_INSURANCE, EMPLOYMENT, SOCIAL_WELFARE, WORK
+}
