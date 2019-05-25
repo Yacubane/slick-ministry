@@ -10,7 +10,8 @@ public class WorkInstitution extends Institution {
     class EventBusRecorder implements BroadcastRecorder {
         @Subscribe
         public void recordMessage(Message e) {
-            System.out.println(this.getClass().getName() + " got message: " + e.getMessage());
+            System.out.println(this.getClass().getName()
+                    + " got message: " + e.getMessage());
         }
     }
 

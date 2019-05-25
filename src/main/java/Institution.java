@@ -1,7 +1,7 @@
 import com.google.common.eventbus.EventBus;
 
 public abstract class Institution {
-    private Object recorder;
+    private BroadcastRecorder recorder;
     EventBus eventBus;
 
     public Institution() {
