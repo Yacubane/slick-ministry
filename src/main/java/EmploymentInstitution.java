@@ -7,23 +7,15 @@ public class EmploymentInstitution extends Institution {
         }
     }
 
-    class EventBusRecorder implements BroadcastRecorder {
-        @Subscribe
-        public void recordMessage(Message e) {
-            System.out.println(this.getClass().getName()
-                    + " got message: " + e.getMessage());
-        }
-
-        @Subscribe
-        public void recordWorkMessage(WorkInstitution.Message e) {
-            System.out.println(this.getClass().getName()
-                    + " got [WORK] message: " + e.getMessage());
-        }
+    @Subscribe
+    public void recordMessage(Message e) {
+        System.out.println(this.getClass().getName()
+                + " got message: " + e.getMessage());
     }
 
-    @Override
-    BroadcastRecorder createRecorder() {
-        return new EventBusRecorder();
+    @Subscribe
+    public void recordWorkMessage(WorkInstitution.Message e) {
+        System.out.println(this.getClass().getName()
+                + " got [WORK] message: " + e.getMessage());
     }
-
 }

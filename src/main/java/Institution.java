@@ -1,7 +1,7 @@
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 public abstract class Institution {
-    private BroadcastRecorder recorder;
     EventBus eventBus;
 
     public Institution() {
@@ -10,12 +10,11 @@ public abstract class Institution {
     }
 
     private void unsubscribe(EventBus eventBus) {
-        eventBus.unregister(recorder);
+        eventBus.unregister(this);
     }
 
     private void subscribe(EventBus eventBus) {
-        recorder = createRecorder();
-        eventBus.register(recorder);
+        eventBus.register(this);
 
     }
 
@@ -27,6 +26,10 @@ public abstract class Institution {
         subscribe(eventBus);
     }
 
-    abstract BroadcastRecorder createRecorder();
+    @Subscribe
+    private void recordBroadcastMessage(BroadcastMessage e) {
+        System.out.println(this.getClass().getName() + " got [BROADCAST] message: " + e.getMessage());
+
+    }
 
 }
