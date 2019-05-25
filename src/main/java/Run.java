@@ -4,29 +4,30 @@ public class Run {
     public static void main(String[] args) {
         Ministry ministry = new Ministry();
 
-        EmploymentInstitution i1 = new EmploymentInstitution();
-        SocialInsuranceInstitution i2 = new SocialInsuranceInstitution();
-        SocialWelfareInstitution i3 = new SocialWelfareInstitution();
-        WorkInstitution i4 = new WorkInstitution();
+        EmploymentInstitution employmentInstitution = new EmploymentInstitution();
+        SocialInsuranceInstitution socialInsuranceInstitution = new SocialInsuranceInstitution();
+        SocialWelfareInstitution socialWelfareInstitution = new SocialWelfareInstitution();
+        WorkInstitution workInstitution = new WorkInstitution();
 
-        for (Institution institution : List.of(i1, i2, i3, i4)) {
-            ministry.addInstitution(institution);
-        }
-
-        System.out.println();
-        ministry.sendToAll("Message to all institutions");
+        System.out.println("Ministry to all institutions");
+        ministry.send(List.of(new BroadcastMessage("Ministry to all")));
 
         System.out.println();
-        ministry.sendTo(List.of(InstitutionType.SOCIAL_WELFARE, InstitutionType.SOCIAL_INSURANCE), "Message to social" +
-                " institutions");
-
-        ministry.removeInstitution(i4);
-
-        System.out.println();
-        ministry.sendToAll("Again, message to all institutions");
+        System.out.println("Ministry to all social institutions");
+        ministry.send(List.of(new SocialInsuranceInstitution.Message("Ministry to social institutions"),
+                new SocialWelfareInstitution.Message("Ministry to social institutions")));
 
         System.out.println();
-        ministry.sendTo(List.of(InstitutionType.EMPLOYMENT, InstitutionType.WORK), "Message to employment and work " +
-                "institutions");
+        System.out.println("Ministry to work institution");
+        ministry.send(List.of(new WorkInstitution.Message("Ministry to WorkInstitution")));
+
+        System.out.println();
+        System.out.println("Unsubscribing WorkInstitution");
+        workInstitution.unsubscribe();
+
+        System.out.println();
+        System.out.println("Ministry to work institution again");
+        ministry.send(List.of(new WorkInstitution.Message("Ministry to WorkInstitution")));
+
     }
 }

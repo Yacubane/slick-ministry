@@ -1,17 +1,32 @@
-import java.util.List;
+import com.google.common.eventbus.EventBus;
 
 public abstract class Institution {
-    private final List<InstitutionType> types;
+    private Object recorder;
+    EventBus eventBus;
 
-    public Institution(List<InstitutionType> types) {
-        this.types = types;
+    public Institution() {
+        eventBus = EventBusFactory.getEventBus();
+        subscribe(eventBus);
     }
 
-    abstract String receiveSignal(String signal);
-
-    public List<InstitutionType> getTypes() {
-        return types;
+    private void unsubscribe(EventBus eventBus) {
+        eventBus.unregister(recorder);
     }
 
+    private void subscribe(EventBus eventBus) {
+        recorder = createRecorder();
+        eventBus.register(recorder);
+
+    }
+
+    public void unsubscribe() {
+        unsubscribe(eventBus);
+    }
+
+    public void subscribe() {
+        subscribe(eventBus);
+    }
+
+    abstract BroadcastRecorder createRecorder();
 
 }

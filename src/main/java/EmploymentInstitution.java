@@ -1,15 +1,27 @@
-import java.util.List;
+import com.google.common.eventbus.Subscribe;
 
 public class EmploymentInstitution extends Institution {
-    public EmploymentInstitution() {
-        super(List.of(InstitutionType.EMPLOYMENT, InstitutionType.SOCIAL_INSURANCE));
+    static class Message extends BusMessage {
+        public Message(String message) {
+            super(message);
+        }
+    }
+
+    class EventBusRecorder implements BroadcastRecorder {
+        @Subscribe
+        public void recordMessage(Message e) {
+            System.out.println(this.getClass().getName() + " got message: " + e.getMessage());
+        }
+
+        @Subscribe
+        public void recordWorkMessage(WorkInstitution.Message e) {
+            System.out.println(this.getClass().getName() + " got [WORK] message: " + e.getMessage());
+        }
     }
 
     @Override
-    public String receiveSignal(String signal) {
-        String message = "Employment: " + signal;
-
-        System.out.println(message);
-        return message;
+    BroadcastRecorder createRecorder() {
+        return new EventBusRecorder();
     }
+
 }

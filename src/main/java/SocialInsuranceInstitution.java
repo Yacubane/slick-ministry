@@ -1,15 +1,23 @@
-import java.util.List;
+import com.google.common.eventbus.Subscribe;
 
 public class SocialInsuranceInstitution extends Institution {
-    public SocialInsuranceInstitution() {
-        super(List.of(InstitutionType.SOCIAL_INSURANCE));
+    static class Message extends BusMessage {
+        public Message(String message) {
+            super(message);
+        }
+    }
+
+    class EventBusRecorder implements BroadcastRecorder {
+        @Subscribe
+        public void recordMessage(Message e) {
+            System.out.println(this.getClass().getName() + " got message: " + e.getMessage());
+        }
     }
 
     @Override
-    public String receiveSignal(String signal) {
-        String message = "SocialInsurance: " + signal;
-
-        System.out.println(message);
-        return message;
+    BroadcastRecorder createRecorder() {
+        return new EventBusRecorder();
     }
+
 }
+
